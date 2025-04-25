@@ -212,6 +212,20 @@ mod tests {
     }
 
     #[test]
+    fn parse_ignore_data_type() {
+        let input = String::from(
+            r#"
+<head>
+  <link rel="icon" type="image/x-icon"
+    href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAA/UExURQAAAABOZABOZABOZABOZABOZABOZABOZABOZABOZBBZbpCyvMDT2aC9xf///+Dp7NDe4kB6izBvgbDIzwAAAMX7FTQAAAAJdFJOUwAQcIDQ8JDAIP8TSPEAAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH6QMNByMNjQJfvgAAAGFJREFUGNN9kFkOwCAIBUHrRl3b+9+1EmPcks6PZKLyAACFHAgEwMvNKAThVjRIPuj2DJemmRDTZnyi/qob73aTS4VmE5nyf+f85+jV8jyTocAB32bOuVCts9u6Dm0G2sIHxDwJ7v7tyZUAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMDMtMTNUMDc6MzU6MTMrMDA6MDC119k0AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTAzLTEzVDA3OjM1OjEzKzAwOjAwxIphiAAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNS0wMy0xM1QwNzozNToxMyswMDowMJOfQFcAAAAASUVORK5CYII="
+    />
+</head>
+        "#,
+        );
+        assert_eq!(trim(parse_content(input.clone(), Vec::new())), trim(input));
+    }
+
+    #[test]
     fn append_custom_script() {
         let input = String::from(
             r#"

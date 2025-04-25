@@ -9,12 +9,28 @@ value = {
     ( !STR ~ ANY )+
 }
 
+schema = {
+	ASCII_ALPHA+ ~ "://"
+}
+
+skip_source_prefix = {
+  	( "data:" | schema )
+}
+
+skip_source_tag = {
+	( "src" | "href" ) ~ "=" ~ STR ~ skip_source_prefix
+}
+
 tag = {
-    ( !( "=" | " " ) ~ ANY )+
+    ( !( "=" | " " | skip_source_tag ) ~ ANY )+
+}
+
+any_attribute = _{
+     ( tag ) ~ ( "=" ~ STR ~ value ~ STR )?
 }
 
 attributes = _{
-     ( !">" ~ WS ~ tag ~ ( "=" ~ STR ~ value ~ STR )? ~ WS ~ "/"? )+
+     ( !">" ~ WS ~ any_attribute ~ WS ~ "/"? )+
 }
 
 script = {
